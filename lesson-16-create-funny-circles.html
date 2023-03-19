@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Funny circles</title>
+</head>
+<body>
+    
+        <canvas id="myCanvas" width="1368px" height="768px" style="border:1px solid #d3d3d3;"> 
+        <!--Tạo thẻ canvas để thể hiện thông tin-->
+
+        <script>
+            // tạo class hình tròn
+            function Circle(x, y, radius){ // x, y để xác định tọa độ điểm tâm
+                this.x = x;
+                this.y = y;
+                this.radius = radius;
+            }
+            // vẽ lấy số ngẫu nhiên để đưa vào hàm bên dưới lấy mã màu:
+            function getRandomHex(){
+                return Math.floor(Math.random()*255);//Math.floor là hàm làm tròn xuống, lấy số ngẫu nhiên từ 0 -->255
+            }
+            // hàm tạo màu ngẫu nhiên cho đường tròn
+            function getRandomColor(){
+                var red = getRandomHex();
+                var green = getRandomHex();
+                var blue = getRandomHex();
+                    return `rgb( ${red}, ${blue}, ${blue})`; //định dạng mã màu 
+
+            }
+            // tạo đối tượng: đường tròn với bán kính ngẫu nhiên bằng cách sử dụng phương thức Random()
+            function createCircle(){
+                var ctx = document.getElementById('myCanvas').getContext("2d"); //tạo đường tròn kiểu 2d
+                var radius = Math.floor(Math.random()*80); // sử dụng Math.random() để tạo ra một bán kính ngẫu nhiên nằm trong khoảng từ 0-80
+                var color = getRandomColor();
+                var x = Math.random() * window.innerWidth; //window.innerWidth: Chiều rộng của màn hình window
+                var y = Math.random() * window.innerHeight;//window.innerHeight: Chiều cao của màn hình window
+                var circle = new Circle(x,y,radius); // tạo đường tròn có vị trí của tâm tại tọa độ x=500, y =500,bán kính là radius
+                ctx.beginPath(); // Khi một đường path mới được bắt đầu, tất cả các đường path trước đó sẽ bị xóa bỏ và các lệnh vẽ sắp tới sẽ được áp dụng cho đường path mới này.
+                ctx.arc(circle.x, circle.y, circle.radius,0, 2*Math.PI); // tạo đường tròn (math.PI là nữa đường tròn)
+                ctx.fillStyle = color;
+                ctx.fill();// được sử dụng để tô màu các hình vẽ hoặc đường path đã được tạo ra bằng các phương thức vẽ khác
+            }
+            
+            for(let i =0; i<100; i++){
+                createCircle();
+            }
+                      
+        </script>
+        
+</body>
+</html>
